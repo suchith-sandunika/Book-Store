@@ -1,2 +1,1 @@
-# Book-Store
-A simple Book Store Application based on MERN-Stack
+// MERN Project for learning purposes ...
