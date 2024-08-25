@@ -1,19 +1,17 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 
-const bookSchema = mongoose.Schema(
-    {
-        title : {
+const bookSchema = new mongoose.Schema(
+        {
+        title: {
             type: String,
             required: true,
         },
-
-        author : {
+        author: {
             type: String,
             required: true,
         },
-
-        publishYear : {
-            type: String,
+        publishYear: {
+            type: Number,
             required: true,
         },
     },
@@ -22,4 +20,4 @@ const bookSchema = mongoose.Schema(
     }
 );
 
-export const Book = mongoose.model('Cat', { name: String });
+export const Book = mongoose.model('Cat', bookSchema);

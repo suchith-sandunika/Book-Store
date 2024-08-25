@@ -1,37 +1,39 @@
 import express from 'express';
-import { PORT, mongoDBURL } from './config.js';
+import {PORT, mongoDBURL} from './config.js';
 import mongoose from 'mongoose';
 import { Book } from './models/bookModel.js';
+import bookRoute from './routes/booksRoute.js';
 import cors from 'cors';
 
 const app = express(); 
 
-// Middleware for passing request body ...
+// Middleware for parsing request body ...
+app.use(express.json());
 
-app.use(
-    cors({
-        origin: 'https://localhost:3000',
-        method: ['GET','POST', 'PUT', 'DELETE'],
-        allowedHeaders: ['Content-Type'],
-    })
-);
+// Middleware for handling CORS ...
+// Option - 1 --> Allow all Origins with default of cors(*) ...
+//app.use(cors()); 
+// Option - 2 --> Allow specific / custom Origins ...
+app.use(cors({
+    origin: 'http://localhost:3000',
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type'],
+}));
 
+// normal check of server ...
 app.get('/', (request, response) => {
     console.log(request);
-    return response.status(234).send("Hi... Welcome!");
-}); 
+    return response.status(234).send('Welcome!!!');
+});  
 
-app.use('/books', booksRoute);
+app.use('/books', bookRoute);
 
-mongoose
-    .connect(mongoDBURL)
-    .then(() => {
-        console.log('Connected to MongoDB...');
-        app.listen(PORT, () => {
-            console.log(`Server listening on port ${PORT}...`);
-        })
-    })
-    .catch((error) => {
-        console.log("Error Occured!");
-        console.log(error);
+// check the database connection ...
+mongoose.connect(mongoDBURL).then(() => {
+    console.log('App Connected to the Database ...');
+    app.listen(PORT, () => {
+        console.log(`listening on port: ${PORT}`);
     });
+}).catch((error) =>{
+    console.log(error)
+});

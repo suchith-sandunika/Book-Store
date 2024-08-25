@@ -1,3 +1,3 @@
-export const PORT = 5555;
+export const PORT = 6000;
 
-export const mongoDBURL = 'mongodb+srv://user:123@atlascluster.txwrxc4.mongodb.net/books-collection?retryWrites=true&w=majority&appName=AtlasCluster';
+export const mongoDBURL = 'mongodb+srv://user:123@atlascluster.txwrxc4.mongodb.net/';
